@@ -30,6 +30,7 @@ class KoreaInvestmentLoginGatewayTest {
                 properties.appSecret());
         KoreaInvestmentLoginGatewayResponse response = gateway.login(request);
         Assertions.assertThat(response).isNotNull();
+        log.info("response: {}", response);
     }
 
 
