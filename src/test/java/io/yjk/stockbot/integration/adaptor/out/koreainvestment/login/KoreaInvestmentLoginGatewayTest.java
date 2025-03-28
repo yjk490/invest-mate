@@ -1,7 +1,9 @@
-package io.yjk.stockbot.adaptor.out.koreainvestment.login;
+package io.yjk.stockbot.integration.adaptor.out.koreainvestment.login;
 
 import io.yjk.stockbot.global.HttpBeanConfig;
 import io.yjk.stockbot.global.KoreaInvestmentProperties;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestClient;
 
+@Slf4j
 @SpringBootTest
 @ContextConfiguration(classes = KoreaInvestmentLoginGatewayTest.TestConfig.class)
 @ActiveProfiles("dev")
@@ -26,7 +29,7 @@ class KoreaInvestmentLoginGatewayTest {
                 properties.appKey(),
                 properties.appSecret());
         KoreaInvestmentLoginGatewayResponse response = gateway.login(request);
-        System.out.println(response);
+        Assertions.assertThat(response).isNotNull();
     }
 
 
