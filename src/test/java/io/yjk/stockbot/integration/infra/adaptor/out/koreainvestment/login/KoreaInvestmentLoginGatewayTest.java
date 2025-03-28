@@ -1,7 +1,10 @@
-package io.yjk.stockbot.integration.adaptor.out.koreainvestment.login;
+package io.yjk.stockbot.integration.infra.adaptor.out.koreainvestment.login;
 
 import io.yjk.stockbot.global.HttpBeanConfig;
 import io.yjk.stockbot.global.KoreaInvestmentProperties;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGateway;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGatewayRequest;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGatewayResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

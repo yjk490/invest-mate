@@ -1,4 +1,4 @@
-package io.yjk.stockbot.integration.adaptor.out.koreainvestment.login;
+package io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package io.yjk.stockbot.integration.adaptor.out.koreainvestment.login;
+package io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
