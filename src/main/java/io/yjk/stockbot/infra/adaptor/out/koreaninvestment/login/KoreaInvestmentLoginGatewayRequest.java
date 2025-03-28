@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
 public class KoreaInvestmentLoginGatewayRequest {
     @JsonProperty("grant_type")
     private String grantType;

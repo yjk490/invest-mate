@@ -1,4 +1,4 @@
-package io.yjk.stockbot.integration.infra.adaptor.out.koreainvestment.login;
+package io.yjk.stockbot.intergration.infra.adaptor.out.koreaninvestment.login;
 
 import io.yjk.stockbot.global.HttpBeanConfig;
 import io.yjk.stockbot.global.KoreaInvestmentProperties;
