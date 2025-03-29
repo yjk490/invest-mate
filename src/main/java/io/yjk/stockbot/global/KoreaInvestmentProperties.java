@@ -2,6 +2,7 @@ package io.yjk.stockbot.global;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 public interface KoreaInvestmentProperties {
@@ -11,6 +12,7 @@ public interface KoreaInvestmentProperties {
 
     @Configuration
     @PropertySource("classpath:application-dev.properties")
+    @Profile("dev")
     class KoreaInvestmentDevProperties implements KoreaInvestmentProperties {
 
         @Value("${koreaInvestment.baseUrl}") private String baseUrl;
@@ -35,6 +37,7 @@ public interface KoreaInvestmentProperties {
 
     @Configuration
     @PropertySource("classpath:application-prod.properties")
+    @Profile("prod")
     class KoreaInvestmentProdProperties implements KoreaInvestmentProperties {
 
         @Value("${koreaInvestment.baseUrl}") private String baseUrl;
