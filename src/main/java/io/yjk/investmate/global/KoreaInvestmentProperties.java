@@ -1,4 +1,4 @@
-package io.yjk.stockbot.global;
+package io.yjk.investmate.global;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

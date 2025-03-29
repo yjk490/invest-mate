@@ -1,7 +1,7 @@
-package io.yjk.stockbot.infra.adaptor.out.koreaninvestment;
+package io.yjk.investmate.koreainvestment.infra.gateway;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.yjk.stockbot.global.KoreaInvestmentProperties;
+import io.yjk.investmate.global.KoreaInvestmentProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;

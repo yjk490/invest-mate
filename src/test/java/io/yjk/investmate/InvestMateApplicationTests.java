@@ -1,10 +1,10 @@
-package io.yjk.stockbot;
+package io.yjk.investmate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StockbotApplicationTests {
+class InvestMateApplicationTests {
 
     @Test
     void contextLoads() {

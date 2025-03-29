@@ -1,13 +1,13 @@
-package io.yjk.stockbot;
+package io.yjk.investmate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StockbotApplication {
+public class InvestMateApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StockbotApplication.class, args);
+        SpringApplication.run(InvestMateApplication.class, args);
     }
 
 }
