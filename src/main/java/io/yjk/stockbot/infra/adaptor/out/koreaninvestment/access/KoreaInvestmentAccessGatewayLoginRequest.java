@@ -1,4 +1,4 @@
-package io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login;
+package io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class KoreaInvestmentLoginGatewayRequest {
+public class KoreaInvestmentAccessGatewayLoginRequest {
     @JsonProperty("grant_type")
     private String grantType;
     @JsonProperty("appkey")

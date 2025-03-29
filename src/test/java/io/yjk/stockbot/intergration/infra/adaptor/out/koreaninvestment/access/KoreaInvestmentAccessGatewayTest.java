@@ -1,10 +1,10 @@
-package io.yjk.stockbot.intergration.infra.adaptor.out.koreaninvestment.login;
+package io.yjk.stockbot.intergration.infra.adaptor.out.koreaninvestment.access;
 
 import io.yjk.stockbot.global.HttpBeanConfig;
 import io.yjk.stockbot.global.KoreaInvestmentProperties;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGateway;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGatewayRequest;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGatewayResponse;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGateway;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGatewayLoginRequest;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGatewayLoginResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,20 +18,20 @@ import org.springframework.web.client.RestClient;
 
 @Slf4j
 @SpringBootTest
-@ContextConfiguration(classes = KoreaInvestmentLoginGatewayTest.TestConfig.class)
+@ContextConfiguration(classes = KoreaInvestmentAccessGatewayTest.TestConfig.class)
 @ActiveProfiles("dev")
-class KoreaInvestmentLoginGatewayTest {
+class KoreaInvestmentAccessGatewayTest {
 
     @Autowired private KoreaInvestmentProperties properties;
-    @Autowired private KoreaInvestmentLoginGateway gateway;
+    @Autowired private KoreaInvestmentAccessGateway gateway;
 
     @Test
     void login() {
-        KoreaInvestmentLoginGatewayRequest request = new KoreaInvestmentLoginGatewayRequest(
+        KoreaInvestmentAccessGatewayLoginRequest request = new KoreaInvestmentAccessGatewayLoginRequest(
                 "client_credentials",
                 properties.appKey(),
                 properties.appSecret());
-        KoreaInvestmentLoginGatewayResponse response = gateway.login(request);
+        KoreaInvestmentAccessGatewayLoginResponse response = gateway.login(request);
         Assertions.assertThat(response).isNotNull();
         log.info("response: {}", response);
     }
@@ -50,8 +50,8 @@ class KoreaInvestmentLoginGatewayTest {
         }
 
         @Bean
-        public KoreaInvestmentLoginGateway gateway() {
-            return new KoreaInvestmentLoginGateway.KoreaInvestmentLoginHttpGateway(restClient());
+        public KoreaInvestmentAccessGateway gateway() {
+            return new KoreaInvestmentAccessGateway.KoreaInvestmentAccessHttpGateway(restClient());
         }
     }
 

@@ -1,8 +1,8 @@
-package io.yjk.stockbot.unit.infra.adaptor.out.koreaninvestment.login;
+package io.yjk.stockbot.unit.infra.adaptor.out.koreaninvestment.access;
 
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGateway;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGatewayRequest;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.login.KoreaInvestmentLoginGatewayResponse;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGateway;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGatewayLoginRequest;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGatewayLoginResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,22 +16,22 @@ import static org.mockito.Mockito.*;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-class KoreaInvestmentLoginGatewayTest {
+class KoreaInvestmentAccessGatewayTest {
 
     private final RestClient restClient = mock(RestClient.class);
     private final RestClient.RequestBodySpec requestBodySpec = mock(RestClient.RequestBodySpec.class);
     private final RestClient.RequestBodyUriSpec requestBodyUriSpec = mock(RestClient.RequestBodyUriSpec.class);
     private final RestClient.ResponseSpec responseSpec = mock(RestClient.ResponseSpec.class);
-    private final KoreaInvestmentLoginGateway gateway = new KoreaInvestmentLoginGateway.KoreaInvestmentLoginHttpGateway(restClient);
+    private final KoreaInvestmentAccessGateway gateway = new KoreaInvestmentAccessGateway.KoreaInvestmentAccessHttpGateway(restClient);
 
     @Test
     void login() {
-        KoreaInvestmentLoginGatewayRequest request = new KoreaInvestmentLoginGatewayRequest(
+        KoreaInvestmentAccessGatewayLoginRequest request = new KoreaInvestmentAccessGatewayLoginRequest(
                 "client_credentials",
                 "fake_app_key",
                 "fake_app_secret");
 
-        KoreaInvestmentLoginGatewayResponse expectedResponse = new KoreaInvestmentLoginGatewayResponse(
+        KoreaInvestmentAccessGatewayLoginResponse expectedResponse = new KoreaInvestmentAccessGatewayLoginResponse(
                 "fake_access_token",
                 "bearer",
                 "86400",
@@ -39,11 +39,11 @@ class KoreaInvestmentLoginGatewayTest {
 
         when(restClient.post()).thenReturn(requestBodyUriSpec);
         when(requestBodyUriSpec.uri("/oauth2/tokenP")).thenReturn(requestBodySpec);
-        when(requestBodySpec.body(any(KoreaInvestmentLoginGatewayRequest.class))).thenReturn(requestBodySpec);
+        when(requestBodySpec.body(any(KoreaInvestmentAccessGatewayLoginRequest.class))).thenReturn(requestBodySpec);
         when(requestBodySpec.retrieve()).thenReturn(responseSpec);
-        when(responseSpec.toEntity(KoreaInvestmentLoginGatewayResponse.class)).thenReturn(ResponseEntity.ok(expectedResponse));
+        when(responseSpec.toEntity(KoreaInvestmentAccessGatewayLoginResponse.class)).thenReturn(ResponseEntity.ok(expectedResponse));
 
-        KoreaInvestmentLoginGatewayResponse actualResponse = gateway.login(request);
+        KoreaInvestmentAccessGatewayLoginResponse actualResponse = gateway.login(request);
 
         Assertions.assertThat(actualResponse).isEqualTo(expectedResponse);
 
@@ -51,6 +51,6 @@ class KoreaInvestmentLoginGatewayTest {
         verify(requestBodyUriSpec).uri("/oauth2/tokenP");
         verify(requestBodySpec).body(request);
         verify(requestBodySpec).retrieve();
-        verify(responseSpec).toEntity(KoreaInvestmentLoginGatewayResponse.class);
+        verify(responseSpec).toEntity(KoreaInvestmentAccessGatewayLoginResponse.class);
     }
 }
