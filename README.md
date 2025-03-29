@@ -1,1 +1,1 @@
-# stock-bot
+# invest-mate
