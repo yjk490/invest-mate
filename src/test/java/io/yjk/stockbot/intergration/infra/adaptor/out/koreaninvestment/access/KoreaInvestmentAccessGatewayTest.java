@@ -2,9 +2,7 @@ package io.yjk.stockbot.intergration.infra.adaptor.out.koreaninvestment.access;
 
 import io.yjk.stockbot.global.HttpBeanConfig;
 import io.yjk.stockbot.global.KoreaInvestmentProperties;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGateway;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGatewayLoginRequest;
-import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.KoreaInvestmentAccessGatewayLoginResponse;
+import io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access.*;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,16 +24,28 @@ class KoreaInvestmentAccessGatewayTest {
     @Autowired private KoreaInvestmentAccessGateway gateway;
 
     @Test
-    void login() {
-        KoreaInvestmentAccessGatewayLoginRequest request = new KoreaInvestmentAccessGatewayLoginRequest(
+    void loginAndLogout() {
+        KoreaInvestmentAccessGatewayLoginRequest loginRequest = new KoreaInvestmentAccessGatewayLoginRequest(
                 "client_credentials",
                 properties.appKey(),
                 properties.appSecret());
-        KoreaInvestmentAccessGatewayLoginResponse response = gateway.login(request);
-        Assertions.assertThat(response).isNotNull();
-        log.info("response: {}", response);
-    }
+        KoreaInvestmentAccessGatewayLoginResponse loginResponse = gateway.login(loginRequest);
 
+        Assertions.assertThat(loginResponse).isNotNull();
+        Assertions.assertThat(loginResponse.accessToken()).isNotNull();
+        log.info("loginResponse: {}", loginResponse);
+
+        KoreaInvestmentAccessGatewayLogoutRequest logoutRequest = new KoreaInvestmentAccessGatewayLogoutRequest(
+                properties.appKey(),
+                properties.appSecret(),
+                loginResponse.accessToken()
+        );
+        KoreaInvestmentAccessGatewayLogoutResponse logoutResponse = gateway.logout(logoutRequest);
+
+        Assertions.assertThat(logoutResponse).isNotNull();
+        Assertions.assertThat(logoutResponse.code()).isEqualTo("200");
+        log.info("logoutResponse: {}", logoutResponse);
+    }
 
     @TestConfiguration
     static class TestConfig {

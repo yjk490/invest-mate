@@ -1,12 +1,12 @@
 package io.yjk.stockbot.infra.adaptor.out.koreaninvestment.access;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 @ToString
+@Getter
+@Accessors(fluent = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class KoreaInvestmentAccessGatewayLoginResponse {
