@@ -31,17 +31,15 @@ public class KoreaInvestmentGatewayClient {
         this.properties = properties;
         this.restClient = restClient;
         this.accessTokenStore = new AtomicReference<>();
-
-        log.info("koreaInvestmentProperties: {}", properties);
     }
 
     public <T extends KoreaInvestmentGatewayResponse> T call(
-            String uri,
+            String path,
             KoreaInvestmentGatewayRequest request,
             Class<T> responseType) {
 
         return restClient.post()
-                .uri(uri)
+                .uri(path)
                 .body(request)
                 .retrieve()
                 .toEntity(responseType).getBody();
