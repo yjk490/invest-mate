@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Configuration
-public class HttpBeanConfig {
+public class WebClientBeanConfig {
 
     @Bean(name = "koreaInvestmentRestClient")
     public RestClient koreaInvestmentRestClient(@Value("${koreainvestment.baseUrl}") String url) {
