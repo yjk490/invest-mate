@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -35,11 +36,14 @@ public class KoreaInvestmentGatewayClient {
 
     public <T extends KoreaInvestmentGatewayResponse> T call(
             String path,
+            String transactionId,
             KoreaInvestmentGatewayRequest request,
             Class<T> responseType) {
 
+
         return restClient.post()
                 .uri(path)
+                .headers(httpHeaders -> httpHeaders.addAll(createHeaders(transactionId)))
                 .body(request)
                 .retrieve()
                 .toEntity(responseType).getBody();
@@ -74,6 +78,16 @@ public class KoreaInvestmentGatewayClient {
 
         accessTokenStore.set(null);
     }
+
+    private HttpHeaders createHeaders(String transactionId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessTokenStore.get().tokenValue());
+        headers.set("appkey", properties.appKey());
+        headers.set("appsecret", properties.appSecret());
+        headers.set("tr_id", transactionId);
+        return headers;
+    }
+
 
 
     @ToString
