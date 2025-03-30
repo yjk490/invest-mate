@@ -1,7 +1,7 @@
 package io.yjk.investmate.koreainvestment.infra.gateway;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.yjk.investmate.global.KoreaInvestmentProperties;
+import io.yjk.investmate.koreainvestment.infra.config.KoreaInvestmentProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +31,8 @@ public class KoreaInvestmentGatewayClient {
         this.properties = properties;
         this.restClient = restClient;
         this.accessTokenStore = new AtomicReference<>();
+
+        log.info("koreaInvestmentProperties: {}", properties);
     }
 
     public <T extends KoreaInvestmentGatewayResponse> T call(

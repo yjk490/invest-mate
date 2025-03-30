@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class HttpBeanConfig {
 
     @Bean(name = "koreaInvestmentRestClient")
-    public RestClient koreaInvestmentRestClient(@Value("${koreaInvestment.baseUrl}") String url) {
+    public RestClient koreaInvestmentRestClient(@Value("${koreainvestment.baseUrl}") String url) {
         return RestClient.builder()
                 .baseUrl(url)
                 .requestInterceptor(
