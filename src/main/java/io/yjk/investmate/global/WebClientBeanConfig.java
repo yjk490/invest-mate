@@ -22,10 +22,10 @@ public class WebClientBeanConfig {
                 .baseUrl(url)
                 .requestInterceptor(
                         (request, body, execution) -> {
-                            log.info("[KOREA INVESTMENT REQUEST] {} {} BODY: {}", request.getMethod(), request.getURI(), new String(body));
+                            log.info("[KOREA INVESTMENT REQUEST] {} {}\n HEADERS: {}\n BODY: {}", request.getMethod(), request.getURI(), request.getHeaders() ,new String(body));
                             ClientHttpResponse response = execution.execute(request, body);
                             BufferingClientHttpResponse bufferedResponse = new BufferingClientHttpResponse(response);
-                            log.info("[KOREA INVESTMENT RESPONSE] {} BODY: {}", response.getStatusCode(), bufferedResponse.getBodyAsString());
+                            log.info("[KOREA INVESTMENT RESPONSE] {}\n HEADERS: {}\n BODY: {}", bufferedResponse.getStatusCode(), bufferedResponse.getHeaders() ,bufferedResponse.getBodyAsString());
                             return bufferedResponse;
                         }
                 )
