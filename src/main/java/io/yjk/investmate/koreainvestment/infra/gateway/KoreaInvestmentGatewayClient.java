@@ -60,7 +60,7 @@ public class KoreaInvestmentGatewayClient {
                 .toUriString();
 
         return restClient.get()
-                .uri(uri)
+                .uri(properties.baseUrl() + uri)
                 .headers(httpHeaders -> httpHeaders.addAll(createHeaders(accessTokenStore.get().tokenValue(), transactionId)))
                 .retrieve()
                 .toEntity(responseType).getBody();
@@ -75,7 +75,7 @@ public class KoreaInvestmentGatewayClient {
 
 
         return restClient.post()
-                .uri(path)
+                .uri(properties.baseUrl() + path)
                 .headers(httpHeaders -> httpHeaders.addAll(createHeaders(accessTokenStore.get().tokenValue(), transactionId)))
                 .body(request)
                 .retrieve()
@@ -91,7 +91,7 @@ public class KoreaInvestmentGatewayClient {
         try {
             KoreaInvestmentAccessGatewayLoginResponse response = Optional.ofNullable(
                     restClient.post()
-                            .uri(LOGIN_PATH)
+                            .uri(properties.baseUrl() + LOGIN_PATH)
                             .body(request)
                             .retrieve()
                             .toEntity(KoreaInvestmentAccessGatewayLoginResponse.class)
@@ -122,7 +122,7 @@ public class KoreaInvestmentGatewayClient {
 
         try {
             KoreaInvestmentAccessGatewayLogoutResponse response = Optional.ofNullable(restClient.post()
-                    .uri(LOGOUT_PATH)
+                    .uri(properties.baseUrl() + LOGOUT_PATH)
                     .body(request)
                     .retrieve()
                     .toEntity(KoreaInvestmentAccessGatewayLogoutResponse.class).getBody()

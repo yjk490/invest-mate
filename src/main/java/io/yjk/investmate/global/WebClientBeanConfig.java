@@ -17,9 +17,8 @@ import java.nio.charset.StandardCharsets;
 public class WebClientBeanConfig {
 
     @Bean(name = "koreaInvestmentRestClient")
-    public RestClient koreaInvestmentRestClient(@Value("${koreainvestment.baseUrl}") String url) {
+    public RestClient koreaInvestmentRestClient() {
         return RestClient.builder()
-                .baseUrl(url)
                 .requestInterceptor(
                         (request, body, execution) -> {
                             log.info("[KOREA INVESTMENT REQUEST] {} {}\n HEADERS: {}\n BODY: {}", request.getMethod(), request.getURI(), request.getHeaders() ,new String(body));
