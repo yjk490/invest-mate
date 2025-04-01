@@ -58,7 +58,7 @@ public class KoreaInvestmentGatewayClient {
 
         return restClient.get()
                 .uri(uri)
-                .headers(httpHeaders -> httpHeaders.addAll(createHeaders(transactionId)))
+                .headers(httpHeaders -> httpHeaders.addAll(createHeaders(accessTokenStore.get().tokenValue(), transactionId)))
                 .retrieve()
                 .toEntity(responseType).getBody();
 
@@ -73,7 +73,7 @@ public class KoreaInvestmentGatewayClient {
 
         return restClient.post()
                 .uri(path)
-                .headers(httpHeaders -> httpHeaders.addAll(createHeaders(transactionId)))
+                .headers(httpHeaders -> httpHeaders.addAll(createHeaders(accessTokenStore.get().tokenValue(), transactionId)))
                 .body(request)
                 .retrieve()
                 .toEntity(responseType).getBody();
@@ -109,9 +109,9 @@ public class KoreaInvestmentGatewayClient {
         accessTokenStore.set(null);
     }
 
-    private HttpHeaders createHeaders(String transactionId) {
+    private HttpHeaders createHeaders(String accessToken, String transactionId) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessTokenStore.get().tokenValue());
+        headers.setBearerAuth(accessToken);
         headers.set("appkey", properties.appKey());
         headers.set("appsecret", properties.appSecret());
         headers.set("tr_id", transactionId);
