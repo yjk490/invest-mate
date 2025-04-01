@@ -22,7 +22,6 @@ public class KoreaInvestmentAccountGateway {
     }
 
     public KoreaInvestmentAccountGatewayResponse execute(KoreaInvestmentAccountGatewayRequest request) {
-        apiClient.login();
         return apiClient.get(PATH, transactionId, request, KoreaInvestmentAccountGatewayResponse.class);
     }
 }

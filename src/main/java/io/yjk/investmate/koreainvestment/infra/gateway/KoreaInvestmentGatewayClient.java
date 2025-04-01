@@ -8,16 +8,19 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
@@ -85,13 +88,30 @@ public class KoreaInvestmentGatewayClient {
                 properties.appKey(),
                 properties.appSecret());
 
-        KoreaInvestmentAccessGatewayLoginResponse response = restClient.post()
-                .uri(LOGIN_PATH)
-                .body(request)
-                .retrieve()
-                .toEntity(KoreaInvestmentAccessGatewayLoginResponse.class).getBody();
+        try {
+            KoreaInvestmentAccessGatewayLoginResponse response = Optional.ofNullable(
+                    restClient.post()
+                            .uri(LOGIN_PATH)
+                            .body(request)
+                            .retrieve()
+                            .toEntity(KoreaInvestmentAccessGatewayLoginResponse.class)
+                            .getBody()
+            ).orElseThrow(() -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "[KOREA INVESTMENT ERROR] LOGIN :: Failed to issue token. Response is null"));
 
-        accessTokenStore.set(new AccessToken(response.accessToken(), LocalDateTime.parse(response.accessTokenTokenExpired(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+            accessTokenStore.set(
+                    new AccessToken(
+                            response.accessToken(),
+                            LocalDateTime.parse(response.accessTokenTokenExpired(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                    )
+            );
+            log.info("[KOREA INVESTMENT] LOGIN :: Success");
+
+        } catch (HttpStatusCodeException e) {
+            log.error("[KOREA INVESTMENT ERROR] LOGIN :: Response: {}", e.getResponseBodyAsString(), e);
+            throw e;
+        }
+
     }
 
     public void logout() {
@@ -100,13 +120,26 @@ public class KoreaInvestmentGatewayClient {
                 properties.appSecret(),
                 accessTokenStore.get().tokenValue());
 
-        KoreaInvestmentAccessGatewayLogoutResponse response = restClient.post()
-                .uri(LOGOUT_PATH)
-                .body(request)
-                .retrieve()
-                .toEntity(KoreaInvestmentAccessGatewayLogoutResponse.class).getBody();
+        try {
+            KoreaInvestmentAccessGatewayLogoutResponse response = Optional.ofNullable(restClient.post()
+                    .uri(LOGOUT_PATH)
+                    .body(request)
+                    .retrieve()
+                    .toEntity(KoreaInvestmentAccessGatewayLogoutResponse.class).getBody()
+            ).orElseThrow(() -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "[KOREA INVESTMENT ERROR] LOGOUT :: Failed to revoke token. Response is null"));
 
-        accessTokenStore.set(null);
+            if (response.code().equals("200")) {
+                accessTokenStore.set(null);
+                log.info("[KOREA INVESTMENT] LOGOUT :: Success");
+            } else {
+                log.error("[KOREA INVESTMENT ERROR] LOGOUT :: Failed to revoke token. Response code is not 200: {}", response);
+            }
+
+        } catch (HttpStatusCodeException e) {
+            log.error("[KOREA INVESTMENT ERROR] LOGOUT :: Response: {}", e.getResponseBodyAsString(), e);
+            throw e;
+        }
     }
 
     private HttpHeaders createHeaders(String accessToken, String transactionId) {
