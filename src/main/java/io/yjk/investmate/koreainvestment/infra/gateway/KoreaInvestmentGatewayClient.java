@@ -1,6 +1,7 @@
 package io.yjk.investmate.koreainvestment.infra.gateway;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.yjk.investmate.koreainvestment.infra.config.KoreaInvestmentProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -8,10 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
@@ -22,6 +28,7 @@ public class KoreaInvestmentGatewayClient {
     private final RestClient restClient;
     private final AtomicReference<AccessToken> accessTokenStore;
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String GRANT_TYPE = "client_credentials";
     private static final String LOGIN_PATH = "/oauth2/tokenP";
     private static final String LOGOUT_PATH = "/oauth2/revokeP";
@@ -34,7 +41,30 @@ public class KoreaInvestmentGatewayClient {
         this.accessTokenStore = new AtomicReference<>();
     }
 
-    public <T extends KoreaInvestmentGatewayResponse> T call(
+    public <T extends KoreaInvestmentGatewayResponse> T get(
+            String path,
+            String transactionId,
+            KoreaInvestmentGatewayRequest request,
+            Class<T> responseType) {
+
+        Map<String, String> params = objectMapper.convertValue(request, Map.class);
+        MultiValueMap<String, String> multiValueParams = new LinkedMultiValueMap<>();
+        params.forEach(multiValueParams::add);
+
+        String uri = UriComponentsBuilder.fromPath(path)
+                .queryParams(multiValueParams)
+                .build()
+                .toUriString();
+
+        return restClient.get()
+                .uri(uri)
+                .headers(httpHeaders -> httpHeaders.addAll(createHeaders(transactionId)))
+                .retrieve()
+                .toEntity(responseType).getBody();
+
+    }
+
+    public <T extends KoreaInvestmentGatewayResponse> T post(
             String path,
             String transactionId,
             KoreaInvestmentGatewayRequest request,
@@ -85,6 +115,7 @@ public class KoreaInvestmentGatewayClient {
         headers.set("appkey", properties.appKey());
         headers.set("appsecret", properties.appSecret());
         headers.set("tr_id", transactionId);
+        headers.set("custtype", "P");
         return headers;
     }
 
