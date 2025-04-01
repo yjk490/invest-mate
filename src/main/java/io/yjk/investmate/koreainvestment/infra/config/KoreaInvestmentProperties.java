@@ -18,8 +18,8 @@ public class KoreaInvestmentProperties {
 
     public KoreaInvestmentProperties(
             @Value("${koreainvestment.baseUrl}") String baseUrl,
-            @Value("koreainvestment.appKey") String appKey,
-            @Value("koreainvestment.appSecret") String appSecret) {
+            @Value("${koreainvestment.appKey}") String appKey,
+            @Value("${koreainvestment.appSecret}") String appSecret) {
         this.baseUrl = baseUrl;
         this.appKey = appKey;
         this.appSecret = appSecret;
