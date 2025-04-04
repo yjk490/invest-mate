@@ -1,7 +1,7 @@
-package io.yjk.investmate.koreainvestment.infra.gateway.account;
+package io.yjk.investmate.stock.infra.gateway.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.yjk.investmate.koreainvestment.infra.gateway.KoreaInvestmentGatewayResponse;
+import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayResponse;
 import lombok.ToString;
 
 import java.util.List;

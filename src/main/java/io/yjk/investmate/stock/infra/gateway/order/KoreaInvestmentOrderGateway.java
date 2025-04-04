@@ -1,6 +1,6 @@
-package io.yjk.investmate.koreainvestment.infra.gateway.order;
+package io.yjk.investmate.stock.infra.gateway.order;
 
-import io.yjk.investmate.koreainvestment.infra.gateway.KoreaInvestmentGatewayClient;
+import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

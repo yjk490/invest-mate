@@ -1,9 +1,9 @@
 package io.yjk.investmate.integration.koreainvestment.infra.gateway.order;
 
-import io.yjk.investmate.koreainvestment.infra.gateway.KoreaInvestmentGatewayClient;
-import io.yjk.investmate.koreainvestment.infra.gateway.order.KoreaInvestmentOrderGateway;
-import io.yjk.investmate.koreainvestment.infra.gateway.order.KoreaInvestmentOrderGatewayRequest;
-import io.yjk.investmate.koreainvestment.infra.gateway.order.KoreaInvestmentOrderGatewayResponse;
+import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayClient;
+import io.yjk.investmate.stock.infra.gateway.order.KoreaInvestmentOrderGateway;
+import io.yjk.investmate.stock.infra.gateway.order.KoreaInvestmentOrderGatewayRequest;
+import io.yjk.investmate.stock.infra.gateway.order.KoreaInvestmentOrderGatewayResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;

@@ -1,9 +1,9 @@
 package io.yjk.investmate.integration.koreainvestment.infra.gateway.account;
 
-import io.yjk.investmate.koreainvestment.infra.gateway.KoreaInvestmentGatewayClient;
-import io.yjk.investmate.koreainvestment.infra.gateway.account.KoreaInvestmentAccountGateway;
-import io.yjk.investmate.koreainvestment.infra.gateway.account.KoreaInvestmentAccountGatewayRequest;
-import io.yjk.investmate.koreainvestment.infra.gateway.account.KoreaInvestmentAccountGatewayResponse;
+import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayClient;
+import io.yjk.investmate.stock.infra.gateway.account.KoreaInvestmentAccountGateway;
+import io.yjk.investmate.stock.infra.gateway.account.KoreaInvestmentAccountGatewayRequest;
+import io.yjk.investmate.stock.infra.gateway.account.KoreaInvestmentAccountGatewayResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
 @Slf4j
 @SpringBootTest

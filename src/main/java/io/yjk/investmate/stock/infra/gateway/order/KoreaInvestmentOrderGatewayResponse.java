@@ -1,7 +1,7 @@
-package io.yjk.investmate.koreainvestment.infra.gateway.order;
+package io.yjk.investmate.stock.infra.gateway.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.yjk.investmate.koreainvestment.infra.gateway.KoreaInvestmentGatewayResponse;
+import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayResponse;
 import lombok.ToString;
 
 public class KoreaInvestmentOrderGatewayResponse implements KoreaInvestmentGatewayResponse {

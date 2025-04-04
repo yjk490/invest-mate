@@ -1,4 +1,4 @@
-package io.yjk.investmate.koreainvestment.infra.config;
+package io.yjk.investmate.stock.infra.config;
 
 import lombok.Getter;
 import lombok.ToString;
