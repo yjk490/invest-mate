@@ -35,8 +35,8 @@ public class KoreaInvestmentOrderGatewayTest {
     @Test
     void buy() {
         KoreaInvestmentOrderGatewayRequest request = new KoreaInvestmentOrderGatewayRequest(
-                "12345678",
-                "99",
+                "64911197",
+                "01",
                 "NASD",
                 "AAPL",
                 "1",
