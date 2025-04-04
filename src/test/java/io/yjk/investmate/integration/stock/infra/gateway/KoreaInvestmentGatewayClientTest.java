@@ -1,4 +1,4 @@
-package io.yjk.investmate.integration.koreainvestment.infra.gateway;
+package io.yjk.investmate.integration.stock.infra.gateway;
 
 import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayClient;
 import lombok.extern.slf4j.Slf4j;
