@@ -50,6 +50,10 @@ public class KoreaInvestmentGatewayClient {
             KoreaInvestmentGatewayRequest request,
             Class<T> responseType) {
 
+        if (accessTokenStore.get() == null || accessTokenStore.get().expiryTime.isBefore(LocalDateTime.now())) {
+            login();
+        }
+
         Map<String, String> params = objectMapper.convertValue(request, Map.class);
         MultiValueMap<String, String> multiValueParams = new LinkedMultiValueMap<>();
         params.forEach(multiValueParams::add);
@@ -72,6 +76,10 @@ public class KoreaInvestmentGatewayClient {
             String transactionId,
             KoreaInvestmentGatewayRequest request,
             Class<T> responseType) {
+
+        if (accessTokenStore.get() == null || accessTokenStore.get().expiryTime.isBefore(LocalDateTime.now())) {
+            login();
+        }
 
 
         return restClient.post()
