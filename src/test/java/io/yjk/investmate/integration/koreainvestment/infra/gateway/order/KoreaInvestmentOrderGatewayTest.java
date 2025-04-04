@@ -1,4 +1,4 @@
-package io.yjk.investmate.integration.koreainvestment.infra.gateway.account;
+package io.yjk.investmate.integration.koreainvestment.infra.gateway.order;
 
 import io.yjk.investmate.koreainvestment.infra.gateway.KoreaInvestmentGatewayClient;
 import io.yjk.investmate.koreainvestment.infra.gateway.order.KoreaInvestmentOrderGateway;
