@@ -2,11 +2,15 @@ package io.yjk.investmate.stock.infra.gateway.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.yjk.investmate.stock.infra.gateway.KoreaInvestmentGatewayResponse;
+import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @ToString
+@Getter
+@Accessors(fluent = true)
 public class KoreaInvestmentAccountGatewayResponse implements KoreaInvestmentGatewayResponse {
     @JsonProperty("rt_cd")
     private String rt_cd;
@@ -27,6 +31,8 @@ public class KoreaInvestmentAccountGatewayResponse implements KoreaInvestmentGat
 
 
     @ToString
+    @Getter
+    @Accessors(fluent = true)
     private static class StockBalance {
         @JsonProperty("cano")
         private String cano;
@@ -67,6 +73,8 @@ public class KoreaInvestmentAccountGatewayResponse implements KoreaInvestmentGat
     }
 
     @ToString
+    @Getter
+    @Accessors(fluent = true)
     private static class StockProfit {
         @JsonProperty("frcr_pchs_amt1")
         private String frcrPchsAmt1;
